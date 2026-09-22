@@ -48,4 +48,4 @@ out/
 Thumbs.db
 
 ### Sensitive Information ###
-application.properties
+application.yml
