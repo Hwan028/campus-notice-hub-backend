@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,6 +36,14 @@ public class Board extends BaseTimeEntity {
     @Column(name="is_active", nullable = false)
     private boolean active=true;
 
+    /**
+     * 크롤러 건강 판정의 기준선을 이 시각 이후의 기록으로만 만든다.
+     * 학교가 사이트를 정상적으로 개편해 "새로운 정상"이 생겼을 때(파서를 고친 뒤)
+     * 관리자가 기준선을 리셋하는 용도. null이면 전체 기록 사용.
+     */
+    @Column(name = "baseline_since")
+    private LocalDateTime baselineSince;
+
     @Builder
     public Board(University university, Department department,
                  String name, String crawlUrl) {
@@ -44,4 +54,7 @@ public class Board extends BaseTimeEntity {
         this.active = true;
     }
 
+    public void resetBaseline(LocalDateTime at) {
+        this.baselineSince = at;
+    }
 }
