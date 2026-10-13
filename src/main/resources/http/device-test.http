@@ -1,0 +1,49 @@
+### 1. 디바이스 등록 (학과 미선택 상태로)
+POST http://localhost:8080/api/devices
+Content-Type: application/json
+
+{
+  "deviceUuid": "test-device-uuid-001"
+}
+
+### 2. 디바이스 등록 (같은 UUID로 한 번 더 - 중복 방지 확인용)
+POST http://localhost:8080/api/devices
+Content-Type: application/json
+
+{
+  "deviceUuid": "test-device-uuid-001"
+}
+
+### 3. 디바이스 학과 변경 (departmentId는 DBeaver에서 department 테이블 확인 후 실제 값으로 교체)
+PATCH http://localhost:8080/api/devices/1
+Content-Type: application/json
+
+{
+  "departmentId": 1
+}
+
+### 4. 프리셋 키워드 목록 조회
+GET http://localhost:8080/api/keywords
+
+### 5. 프리셋 키워드 구독 (keywordName은 실제 프리셋 이름으로)
+POST http://localhost:8080/api/devices/1/keywords?keywordName=장학금
+
+### 6. 사용자 정의 키워드 구독 (없는 이름 -> 새로 생성되는지 확인)
+POST http://localhost:8080/api/devices/1/keywords?keywordName=축제
+
+### 7. 같은 키워드 두 번 구독 시도 (중복 안 되는지 확인)
+POST http://localhost:8080/api/devices/1/keywords?keywordName=장학금
+
+### 8. 키워드 구독 취소 (keywordId는 DBeaver에서 keyword 테이블 확인 후 실제 값으로 교체)
+DELETE http://localhost:8080/api/devices/1/keywords/1
+
+### 9. 키워드 포함된 공지 조회
+GET http://localhost:8080/api/feed?deviceId=1
+
+### 10. 장학금 공지 조회
+POST http://localhost:8080/api/devices/1/keywords?keywordName=장학금
+
+### 피드 조회 (학과 + 키워드 필터 결합)
+GET http://localhost:8080/api/feed?deviceId=1
+
+

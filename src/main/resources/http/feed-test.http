@@ -1,0 +1,30 @@
+### 맞춤 피드 / 공지 목록 (모두 페이지네이션 적용: page 기본 0, size 기본 20, 최대 100)
+
+### 1. 전체 공지 목록 첫 페이지
+GET http://localhost:8080/api/notices?page=0&size=10
+
+### 2. 맞춤 피드 (학과 스코프 + 구독 키워드). deviceId는 device-test.http 로 등록한 값
+GET http://localhost:8080/api/feed?deviceId=1&page=0&size=10
+
+### 3. 다음 페이지 (hasNext 가 true 일 때)
+GET http://localhost:8080/api/feed?deviceId=1&page=1&size=10
+
+### 4. 없는 디바이스 -> 404 (예전에는 500)
+GET http://localhost:8080/api/feed?deviceId=999999
+
+### 5. 범위를 벗어난 size -> 400
+GET http://localhost:8080/api/feed?deviceId=1&size=1000
+
+### 6. deviceId 누락 -> 400
+GET http://localhost:8080/api/feed
+
+### 7. 존재하지 않는 디바이스에 키워드 구독 -> 404 (예전에는 500)
+POST http://localhost:8080/api/devices/999999/keywords?keywordName=장학금
+
+### 8. 빈 deviceUuid 로 등록 -> 400
+POST http://localhost:8080/api/devices
+Content-Type: application/json
+
+{
+  "deviceUuid": ""
+}
