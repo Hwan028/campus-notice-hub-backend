@@ -48,4 +48,7 @@ out/
 Thumbs.db
 
 ### Sensitive Information ###
-application.yml
+# 비밀번호가 들어 있는 로컬 설정만 제외한다. (src/test/resources/application.yml 은 커밋 대상)
+# 새 환경에서는 application-example.yml 을 복사해 application.yml 을 만든다.
+/src/main/resources/application.yml
+/src/main/resources/application-local.yml
