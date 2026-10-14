@@ -1,0 +1,31 @@
+# 테스트 전용 설정: 이 파일이 있으면 main의 application.yml 대신 사용된다(클래스패스 우선순위).
+# 로컬 MariaDB 없이 인메모리 H2로 전체 흐름을 검증한다.
+spring:
+  datasource:
+    url: jdbc:h2:mem:cnh-test;MODE=MariaDB;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    show-sql: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+crawler:
+  admin-token: test-token
+  scheduler:
+    enabled: false          # 테스트에서는 스케줄러를 끄고 crawlAllBoards()를 직접 호출한다
+  health:
+    min-baseline-samples: 3 # 운영 기본값(12)보다 작게 해서 몇 사이클 만에 관찰 기간이 끝나도록
+  alert:
+    discord-webhook-url: ""

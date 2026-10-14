@@ -1,9 +1,8 @@
 package com.kkamar.cnh.service;
 
 import com.kkamar.cnh.dto.NoticeResponse;
-
-import java.util.List;
+import com.kkamar.cnh.dto.PageResponse;
 
 public interface FeedService {
-    List<NoticeResponse> getFeed(Long deviceId);
+    PageResponse<NoticeResponse> getFeed(Long deviceId, int page, int size);
 }

@@ -23,6 +23,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // 크롤러 상태 노출 (/actuator/health 의 crawler 항목)
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     // HTML Parser / Scraping
     implementation 'org.jsoup:jsoup:1.17.2'
 
@@ -38,6 +41,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // 테스트는 로컬 MariaDB 없이도 돌도록 인메모리 H2 사용 (src/test/resources/application.yml)
+    testRuntimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {
